@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "header",
+  "info": {
+    "singularName": "headerid",
+    "pluralName": "header",
+    "displayName": "Header",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "data": {
+      "type": "json"
+    },
+    "pages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pageid.pageid",
+      "mappedBy": "header"
+    },
+    "name": {
+      "type": "string"
+    },
+    "isDefault": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

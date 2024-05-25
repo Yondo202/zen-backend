@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "page",
+  "info": {
+    "singularName": "pageid",
+    "pluralName": "page",
+    "displayName": "Хуудас удирдах",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "isProtected": {
+      "type": "boolean",
+      "default": false
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "default"
+      ],
+      "default": "default",
+      "required": true
+    },
+    "SEO": {
+      "type": "component",
+      "repeatable": false,
+      "component": "seo.google-seo"
+    },
+    "slug": {
+      "type": "string",
+      "required": true
+    },
+    "data": {
+      "type": "json"
+    },
+    "header": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::headerid.headerid",
+      "inversedBy": "pages"
+    },
+    "footer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::footerid.footerid",
+      "inversedBy": "pages"
+    }
+  }
+}

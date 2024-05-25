@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_mainconfig_nemelt_tohirgoo",
+  "info": {
+    "displayName": "Нэмэлт тохиргоо",
+    "icon": "plus"
+  },
+  "options": {},
+  "attributes": {
+    "thumbnail": {
+      "type": "text"
+    },
+    "thumbnail_sm": {
+      "type": "text"
+    }
+  }
+}

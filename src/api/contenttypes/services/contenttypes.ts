@@ -1,0 +1,5 @@
+/**
+ * contenttypes service
+ */
+
+export default () => ({});

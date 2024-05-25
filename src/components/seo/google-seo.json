@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_seo_google_seos",
+  "info": {
+    "displayName": "google-SEO",
+    "icon": "briefcase"
+  },
+  "options": {},
+  "attributes": {
+    "seoTitle": {
+      "type": "string"
+    },
+    "seoDescription": {
+      "type": "text"
+    },
+    "seoMedia": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

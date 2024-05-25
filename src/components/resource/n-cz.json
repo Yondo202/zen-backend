@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_resource_n_cz",
+  "info": {
+    "displayName": "Нөөц",
+    "icon": "manyToOne"
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "text",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "js",
+        "css"
+      ],
+      "required": true
+    }
+  }
+}

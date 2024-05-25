@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "configs",
+  "info": {
+    "singularName": "config",
+    "pluralName": "configs",
+    "displayName": "Үндсэн тохиргоо",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "renderData": {
+      "type": "dynamiczone",
+      "components": [
+        "color.ng",
+        "font.segijn-font",
+        "mainconfig.nemelt-tohirgoo",
+        "resource.n-cz"
+      ]
+    }
+  }
+}
