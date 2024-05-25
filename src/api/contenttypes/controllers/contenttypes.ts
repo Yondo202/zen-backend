@@ -13,6 +13,8 @@ export default {
       return acc;
     }, []);
 
+    
+
     const filterd = types.filter(
       (item) => !modelNameToSkip.includes(item.modelName)
     );
