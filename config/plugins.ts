@@ -5,7 +5,6 @@ export default ({ env }) => ({
     // "file-system": {
     //   enabled: true,
     // },
-  
     upload: {
       config: {
         provider: "aws-s3",
@@ -29,8 +28,6 @@ export default ({ env }) => ({
         },
       },
     },
-  
-    
     // meilisearch: {
     //     config: {
     //         product:{
@@ -42,7 +39,6 @@ export default ({ env }) => ({
     //       apiKey: "8502F099-01AE-4A2D-93A6-B75AD780CCFE",
     //     }
     //   }
-  
     // upload: {
     //   config: {
     //     provider: 'aws-s3',
