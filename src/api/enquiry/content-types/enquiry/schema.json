@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "enquiries",
+  "info": {
+    "singularName": "enquiry",
+    "pluralName": "enquiries",
+    "displayName": "enquiry",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "operable": {
+      "type": "string",
+      "required": false
+    },
+    "transportType": {
+      "type": "string"
+    },
+    "zipInfo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "enquiry-config.zip-info"
+    },
+    "vehicleInfo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "enquiry-config.vehicle-info"
+    },
+    "dateInfo": {
+      "displayName": "dateInfo",
+      "type": "component",
+      "repeatable": false,
+      "component": "enquiry-config.date-info"
+    },
+    "cost": {
+      "displayName": "cost",
+      "type": "component",
+      "repeatable": false,
+      "component": "enquiry-config.cost"
+    },
+    "enquiry_number": {
+      "type": "biginteger",
+      "max": "6",
+      "min": "6",
+      "unique": true,
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "informed",
+        "paid",
+        "done"
+      ],
+      "default": "pending"
+    }
+  }
+}

@@ -4,6 +4,63 @@
 
 import { factories } from "@strapi/strapi";
 
+const temp = {
+  zipInfo: {
+    source: {
+      "place name": "Beverly Hills",
+      longitude: "-118.2987",
+      state: "California",
+      "state abbreviation": "CA",
+      latitude: "33.7866",
+      zipcode: "90213",
+    },
+    destination: {
+      "place name": "Osceola",
+      longitude: "-93.7712",
+      state: "Iowa",
+      "state abbreviation": "IA",
+      latitude: "41.0295",
+      zipcode: "50213",
+    },
+  },
+
+
+  vehicleInfo: {
+    year: 2025,
+    model: {
+      vehicle_id: "400925330",
+      type: "sedan midsize",
+      year: 2024,
+      make: "Acura",
+      model: "Integra",
+      original_model: "Integra",
+      fuel_types: ["G"], // ankaaraldaa av
+    },
+    make: {
+      make: "Acura",
+    },
+   
+  },
+  
+  dateInfo: {
+    phoneNumber: "(111) 111-1111",
+    email: "nyambayar.saint2@gmail.com",
+    date: "2024-06-08",
+  },
+  cost: {
+    calculatedCost: 1348.7190609856,
+    baseRate: 0.8,
+  },
+
+
+
+  operable: "Yes",
+  transportType: "Open",
+
+
+  // generated code
+};
+
 const Convert = (item) => {
   const temp = {
     id: item.id,

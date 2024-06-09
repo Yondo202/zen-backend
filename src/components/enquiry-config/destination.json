@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_enquiry_config_destinations",
+  "info": {
+    "displayName": "destination",
+    "icon": "oneToOne"
+  },
+  "options": {},
+  "attributes": {
+    "place_name": {
+      "type": "string"
+    },
+    "longitude": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "state_abbreviation": {
+      "type": "string"
+    },
+    "latitude": {
+      "type": "string"
+    },
+    "zipcode": {
+      "type": "string"
+    }
+  }
+}

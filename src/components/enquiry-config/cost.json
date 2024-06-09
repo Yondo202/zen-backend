@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_enquiry_config_costs",
+  "info": {
+    "displayName": "cost",
+    "icon": "puzzle"
+  },
+  "options": {},
+  "attributes": {
+    "calculatedCost": {
+      "type": "float"
+    },
+    "baseRate": {
+      "type": "float"
+    }
+  }
+}

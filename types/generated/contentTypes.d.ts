@@ -850,6 +850,53 @@ export interface ApiConfigConfig extends Schema.SingleType {
   };
 }
 
+export interface ApiEnquiryEnquiry extends Schema.CollectionType {
+  collectionName: 'enquiries';
+  info: {
+    singularName: 'enquiry';
+    pluralName: 'enquiries';
+    displayName: 'enquiry';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    operable: Attribute.String;
+    transportType: Attribute.String;
+    zipInfo: Attribute.Component<'enquiry-config.zip-info'>;
+    vehicleInfo: Attribute.Component<'enquiry-config.vehicle-info'>;
+    dateInfo: Attribute.Component<'enquiry-config.date-info'>;
+    cost: Attribute.Component<'enquiry-config.cost'>;
+    enquiry_number: Attribute.BigInteger &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMax<
+        {
+          min: '6';
+          max: '6';
+        },
+        string
+      >;
+    status: Attribute.Enumeration<['pending', 'informed', 'paid', 'done']> &
+      Attribute.DefaultTo<'pending'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::enquiry.enquiry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::enquiry.enquiry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiFooteridFooterid extends Schema.CollectionType {
   collectionName: 'footer';
   info: {
@@ -1015,6 +1062,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::blog.blog': ApiBlogBlog;
       'api::config.config': ApiConfigConfig;
+      'api::enquiry.enquiry': ApiEnquiryEnquiry;
       'api::footerid.footerid': ApiFooteridFooterid;
       'api::headerid.headerid': ApiHeaderidHeaderid;
       'api::news.news': ApiNewsNews;

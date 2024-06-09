@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_enquiry_config_date_infos",
+  "info": {
+    "displayName": "dateInfo",
+    "icon": "user"
+  },
+  "options": {},
+  "attributes": {
+    "phoneNumber": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "date": {
+      "type": "string"
+    }
+  }
+}

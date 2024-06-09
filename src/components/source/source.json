@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_source_sources",
+  "info": {
+    "displayName": "source",
+    "icon": "write"
+  },
+  "options": {},
+  "attributes": {
+    "place_name": {
+      "type": "string"
+    },
+    "longitude": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "state_abbreviation": {
+      "type": "string"
+    },
+    "latitude": {
+      "type": "string"
+    },
+    "zipcode": {
+      "type": "string"
+    }
+  }
+}

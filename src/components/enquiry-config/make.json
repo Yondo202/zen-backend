@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_enquiry_config_makes",
+  "info": {
+    "displayName": "make",
+    "icon": "feather"
+  },
+  "options": {},
+  "attributes": {
+    "make": {
+      "type": "string"
+    }
+  }
+}

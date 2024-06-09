@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_enquiry_config_models",
+  "info": {
+    "displayName": "model",
+    "icon": "car"
+  },
+  "options": {},
+  "attributes": {
+    "vehicle_id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "year": {
+      "type": "biginteger"
+    },
+    "make": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "original_model": {
+      "type": "string"
+    },
+    "fuel_types": {
+      "type": "json"
+    }
+  }
+}

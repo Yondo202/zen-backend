@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_enquiry_config_vehicle_infos",
+  "info": {
+    "displayName": "vehicleInfo",
+    "icon": "typhoon"
+  },
+  "options": {},
+  "attributes": {
+    "year": {
+      "type": "biginteger"
+    },
+    "model": {
+      "displayName": "model",
+      "type": "component",
+      "repeatable": false,
+      "component": "enquiry-config.model"
+    },
+    "make": {
+      "displayName": "make",
+      "type": "component",
+      "repeatable": false,
+      "component": "enquiry-config.make"
+    }
+  }
+}

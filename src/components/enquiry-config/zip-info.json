@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_enquiry_config_zip_infos",
+  "info": {
+    "displayName": "zipInfo",
+    "icon": "expand"
+  },
+  "options": {},
+  "attributes": {
+    "source": {
+      "displayName": "source",
+      "type": "component",
+      "repeatable": false,
+      "component": "source.source"
+    },
+    "destination": {
+      "displayName": "destination",
+      "type": "component",
+      "repeatable": false,
+      "component": "enquiry-config.destination"
+    }
+  }
+}
