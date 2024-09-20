@@ -828,11 +828,6 @@ export interface ApiCheckoutCheckout extends Schema.CollectionType {
     phone_number: Attribute.String & Attribute.Required;
     customer_represent: Attribute.Enumeration<['Individual', 'Business']> &
       Attribute.Required;
-    pricing: Attribute.Relation<
-      'api::checkout.checkout',
-      'oneToOne',
-      'api::pricing.pricing'
-    >;
     delivery_address_details: Attribute.Relation<
       'api::checkout.checkout',
       'oneToMany',
@@ -1066,29 +1061,6 @@ export interface ApiHeaderidHeaderid extends Schema.CollectionType {
   };
 }
 
-export interface ApiNewsNews extends Schema.CollectionType {
-  collectionName: 'newss';
-  info: {
-    singularName: 'news';
-    pluralName: 'newss';
-    displayName: '\u041C\u044D\u0434\u044D\u044D \u043C\u044D\u0434\u044D\u044D\u043B\u044D\u043B';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::news.news', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::news.news', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
 export interface ApiPageidPageid extends Schema.CollectionType {
   collectionName: 'page';
   info: {
@@ -1137,38 +1109,6 @@ export interface ApiPageidPageid extends Schema.CollectionType {
   };
 }
 
-export interface ApiPricingPricing extends Schema.CollectionType {
-  collectionName: 'pricings';
-  info: {
-    singularName: 'pricing';
-    pluralName: 'pricings';
-    displayName: 'Pricing';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String & Attribute.Required & Attribute.Unique;
-    description: Attribute.Text;
-    cost: Attribute.Float & Attribute.Required & Attribute.DefaultTo<0>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pricing.pricing',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pricing.pricing',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1194,9 +1134,7 @@ declare module '@strapi/types' {
       'api::enquiry.enquiry': ApiEnquiryEnquiry;
       'api::footerid.footerid': ApiFooteridFooterid;
       'api::headerid.headerid': ApiHeaderidHeaderid;
-      'api::news.news': ApiNewsNews;
       'api::pageid.pageid': ApiPageidPageid;
-      'api::pricing.pricing': ApiPricingPricing;
     }
   }
 }
