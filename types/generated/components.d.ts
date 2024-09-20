@@ -18,10 +18,12 @@ export interface EnquiryConfigCost extends Schema.Component {
   info: {
     displayName: 'cost';
     icon: 'puzzle';
+    description: '';
   };
   attributes: {
     calculatedCost: Attribute.Float;
     baseRate: Attribute.Float;
+    mile: Attribute.Float;
   };
 }
 

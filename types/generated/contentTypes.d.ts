@@ -810,6 +810,57 @@ export interface ApiBlogBlog extends Schema.CollectionType {
   };
 }
 
+export interface ApiCheckoutCheckout extends Schema.CollectionType {
+  collectionName: 'checkouts';
+  info: {
+    singularName: 'checkout';
+    pluralName: 'checkouts';
+    displayName: 'Checkout';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    company_name: Attribute.String & Attribute.Required;
+    user_full_name: Attribute.String & Attribute.Required;
+    email: Attribute.Email & Attribute.Required;
+    phone_number: Attribute.String & Attribute.Required;
+    customer_represent: Attribute.Enumeration<['Individual', 'Business']> &
+      Attribute.Required;
+    pricing: Attribute.Relation<
+      'api::checkout.checkout',
+      'oneToOne',
+      'api::pricing.pricing'
+    >;
+    delivery_address_details: Attribute.Relation<
+      'api::checkout.checkout',
+      'oneToMany',
+      'api::delivery-address-detail.delivery-address-detail'
+    >;
+    enquiry: Attribute.Relation<
+      'api::checkout.checkout',
+      'oneToOne',
+      'api::enquiry.enquiry'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::checkout.checkout',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::checkout.checkout',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiConfigConfig extends Schema.SingleType {
   collectionName: 'configs';
   info: {
@@ -843,6 +894,50 @@ export interface ApiConfigConfig extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::config.config',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDeliveryAddressDetailDeliveryAddressDetail
+  extends Schema.CollectionType {
+  collectionName: 'delivery_address_details';
+  info: {
+    singularName: 'delivery-address-detail';
+    pluralName: 'delivery-address-details';
+    displayName: 'Delivery address detail';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    address: Attribute.Text & Attribute.Required;
+    address_type: Attribute.Enumeration<['Residential', 'Business']>;
+    contact_type: Attribute.Enumeration<['me', 'someone else']> &
+      Attribute.Required;
+    full_name: Attribute.String & Attribute.Required;
+    phone_number: Attribute.String & Attribute.Required;
+    checkout: Attribute.Relation<
+      'api::delivery-address-detail.delivery-address-detail',
+      'manyToOne',
+      'api::checkout.checkout'
+    >;
+    core_type: Attribute.Enumeration<['Pickup', 'Delivery']> &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::delivery-address-detail.delivery-address-detail',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::delivery-address-detail.delivery-address-detail',
       'oneToOne',
       'admin::user'
     > &
@@ -1042,6 +1137,38 @@ export interface ApiPageidPageid extends Schema.CollectionType {
   };
 }
 
+export interface ApiPricingPricing extends Schema.CollectionType {
+  collectionName: 'pricings';
+  info: {
+    singularName: 'pricing';
+    pluralName: 'pricings';
+    displayName: 'Pricing';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
+    description: Attribute.Text;
+    cost: Attribute.Float & Attribute.Required & Attribute.DefaultTo<0>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pricing.pricing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pricing.pricing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1061,12 +1188,15 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::blog.blog': ApiBlogBlog;
+      'api::checkout.checkout': ApiCheckoutCheckout;
       'api::config.config': ApiConfigConfig;
+      'api::delivery-address-detail.delivery-address-detail': ApiDeliveryAddressDetailDeliveryAddressDetail;
       'api::enquiry.enquiry': ApiEnquiryEnquiry;
       'api::footerid.footerid': ApiFooteridFooterid;
       'api::headerid.headerid': ApiHeaderidHeaderid;
       'api::news.news': ApiNewsNews;
       'api::pageid.pageid': ApiPageidPageid;
+      'api::pricing.pricing': ApiPricingPricing;
     }
   }
 }

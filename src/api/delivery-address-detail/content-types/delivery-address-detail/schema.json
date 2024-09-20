@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "delivery_address_details",
+  "info": {
+    "singularName": "delivery-address-detail",
+    "pluralName": "delivery-address-details",
+    "displayName": "Delivery address detail",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "address": {
+      "type": "text",
+      "required": true
+    },
+    "address_type": {
+      "type": "enumeration",
+      "enum": [
+        "Residential",
+        "Business"
+      ],
+      "required": false
+    },
+    "contact_type": {
+      "type": "enumeration",
+      "enum": [
+        "me",
+        "someone else"
+      ],
+      "required": true
+    },
+    "full_name": {
+      "type": "string",
+      "required": true
+    },
+    "phone_number": {
+      "type": "string",
+      "required": true
+    },
+    "checkout": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::checkout.checkout",
+      "inversedBy": "delivery_address_details"
+    },
+    "core_type": {
+      "type": "enumeration",
+      "enum": [
+        "Pickup",
+        "Delivery"
+      ],
+      "required": true
+    }
+  }
+}

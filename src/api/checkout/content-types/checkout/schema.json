@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "checkouts",
+  "info": {
+    "singularName": "checkout",
+    "pluralName": "checkouts",
+    "displayName": "Checkout",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "company_name": {
+      "type": "string",
+      "required": true
+    },
+    "user_full_name": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone_number": {
+      "type": "string",
+      "required": true
+    },
+    "customer_represent": {
+      "type": "enumeration",
+      "enum": [
+        "Individual",
+        "Business"
+      ],
+      "required": true
+    },
+    "pricing": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::pricing.pricing"
+    },
+    "delivery_address_details": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::delivery-address-detail.delivery-address-detail",
+      "mappedBy": "checkout"
+    },
+    "enquiry": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::enquiry.enquiry"
+    }
+  }
+}
