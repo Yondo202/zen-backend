@@ -1061,6 +1061,42 @@ export interface ApiHeaderidHeaderid extends Schema.CollectionType {
   };
 }
 
+export interface ApiOrderOrder extends Schema.CollectionType {
+  collectionName: 'orders';
+  info: {
+    singularName: 'order';
+    pluralName: 'orders';
+    displayName: 'order';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    stripe_id: Attribute.String;
+    enquiry: Attribute.JSON;
+    payment_status: Attribute.String;
+    customer_email: Attribute.Email;
+    amount_total: Attribute.Float;
+    payment_url: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPageidPageid extends Schema.CollectionType {
   collectionName: 'page';
   info: {
@@ -1134,6 +1170,7 @@ declare module '@strapi/types' {
       'api::enquiry.enquiry': ApiEnquiryEnquiry;
       'api::footerid.footerid': ApiFooteridFooterid;
       'api::headerid.headerid': ApiHeaderidHeaderid;
+      'api::order.order': ApiOrderOrder;
       'api::pageid.pageid': ApiPageidPageid;
     }
   }
