@@ -1,18 +1,5 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface ColorNg extends Schema.Component {
-  collectionName: 'components_color_ng';
-  info: {
-    displayName: '\u04E8\u043D\u0433\u04E9';
-    icon: 'seed';
-    description: '';
-  };
-  attributes: {
-    key: Attribute.String & Attribute.Required;
-    value: Attribute.String & Attribute.Required;
-  };
-}
-
 export interface EnquiryConfigCost extends Schema.Component {
   collectionName: 'components_enquiry_config_costs';
   info: {
@@ -109,32 +96,6 @@ export interface EnquiryConfigZipInfo extends Schema.Component {
   };
 }
 
-export interface FontSegijnFont extends Schema.Component {
-  collectionName: 'components_font_segijn_font';
-  info: {
-    displayName: '\u04AE\u0441\u044D\u0433\u0438\u0439\u043D \u0444\u043E\u043D\u0442';
-    icon: 'bold';
-  };
-  attributes: {
-    key: Attribute.String & Attribute.Required;
-    value: Attribute.String & Attribute.Required;
-    url: Attribute.Text & Attribute.Required;
-    isDefault: Attribute.Boolean & Attribute.DefaultTo<false>;
-  };
-}
-
-export interface MainconfigNemeltTohirgoo extends Schema.Component {
-  collectionName: 'components_mainconfig_nemelt_tohirgoo';
-  info: {
-    displayName: '\u041D\u044D\u043C\u044D\u043B\u0442 \u0442\u043E\u0445\u0438\u0440\u0433\u043E\u043E';
-    icon: 'plus';
-  };
-  attributes: {
-    thumbnail: Attribute.Text;
-    thumbnail_sm: Attribute.Text;
-  };
-}
-
 export interface ResourceNCz extends Schema.Component {
   collectionName: 'components_resource_n_cz';
   info: {
@@ -144,19 +105,6 @@ export interface ResourceNCz extends Schema.Component {
   attributes: {
     url: Attribute.Text & Attribute.Required;
     type: Attribute.Enumeration<['js', 'css']> & Attribute.Required;
-  };
-}
-
-export interface SeoGoogleSeo extends Schema.Component {
-  collectionName: 'components_seo_google_seos';
-  info: {
-    displayName: 'google-SEO';
-    icon: 'briefcase';
-  };
-  attributes: {
-    seoTitle: Attribute.String;
-    seoDescription: Attribute.Text;
-    seoMedia: Attribute.Media;
   };
 }
 
@@ -176,10 +124,97 @@ export interface SourceSource extends Schema.Component {
   };
 }
 
+export interface WebsiteContentsChildContents extends Schema.Component {
+  collectionName: 'components_website_contents_child_contents';
+  info: {
+    displayName: 'Child-contents';
+    icon: 'filter';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    image: Attribute.Media;
+  };
+}
+
+export interface WebsiteContentsContent extends Schema.Component {
+  collectionName: 'components_website_contents_contents';
+  info: {
+    displayName: 'OurService';
+    icon: 'cube';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    image: Attribute.Media;
+    TAG: Attribute.String;
+    cards: Attribute.Component<'website-contents.child-contents', true>;
+  };
+}
+
+export interface WebsiteContentsCustomerFeedback extends Schema.Component {
+  collectionName: 'components_website_contents_customer_feedbacks';
+  info: {
+    displayName: 'CustomerFeedback';
+    icon: 'database';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    customer_name: Attribute.String;
+    image: Attribute.Media;
+  };
+}
+
+export interface WebsiteContentsHomeContent extends Schema.Component {
+  collectionName: 'components_website_contents_home_contents';
+  info: {
+    displayName: 'Home content';
+    icon: 'grid';
+    description: '';
+  };
+  attributes: {
+    Title: Attribute.String;
+    description: Attribute.Text;
+    image: Attribute.Media;
+    sub_title: Attribute.String;
+  };
+}
+
+export interface WebsiteContentsHowItWorks extends Schema.Component {
+  collectionName: 'components_website_contents_how_it_works';
+  info: {
+    displayName: 'HowItWorks';
+    icon: 'dashboard';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    image: Attribute.Media;
+    cards: Attribute.Component<'website-contents.child-contents', true>;
+    sub_title: Attribute.String;
+  };
+}
+
+export interface WebsiteContentsTrustedPartner extends Schema.Component {
+  collectionName: 'components_website_contents_trusted_partners';
+  info: {
+    displayName: 'TrustedPartner';
+    icon: 'crop';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    image: Attribute.Media;
+    TAG: Attribute.String;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'color.ng': ColorNg;
       'enquiry-config.cost': EnquiryConfigCost;
       'enquiry-config.date-info': EnquiryConfigDateInfo;
       'enquiry-config.destination': EnquiryConfigDestination;
@@ -187,11 +222,14 @@ declare module '@strapi/types' {
       'enquiry-config.model': EnquiryConfigModel;
       'enquiry-config.vehicle-info': EnquiryConfigVehicleInfo;
       'enquiry-config.zip-info': EnquiryConfigZipInfo;
-      'font.segijn-font': FontSegijnFont;
-      'mainconfig.nemelt-tohirgoo': MainconfigNemeltTohirgoo;
       'resource.n-cz': ResourceNCz;
-      'seo.google-seo': SeoGoogleSeo;
       'source.source': SourceSource;
+      'website-contents.child-contents': WebsiteContentsChildContents;
+      'website-contents.content': WebsiteContentsContent;
+      'website-contents.customer-feedback': WebsiteContentsCustomerFeedback;
+      'website-contents.home-content': WebsiteContentsHomeContent;
+      'website-contents.how-it-works': WebsiteContentsHowItWorks;
+      'website-contents.trusted-partner': WebsiteContentsTrustedPartner;
     }
   }
 }

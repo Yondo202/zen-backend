@@ -4,7 +4,7 @@
   "info": {
     "singularName": "checkout",
     "pluralName": "checkouts",
-    "displayName": "Checkout",
+    "displayName": "Transport Info",
     "description": ""
   },
   "options": {
@@ -35,17 +35,6 @@
         "Business"
       ],
       "required": true
-    },
-    "delivery_address_details": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::delivery-address-detail.delivery-address-detail",
-      "mappedBy": "checkout"
-    },
-    "enquiry": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::enquiry.enquiry"
     }
   }
 }

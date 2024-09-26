@@ -12,24 +12,48 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string",
-      "required": true
-    },
-    "description": {
-      "type": "text"
-    },
-    "domain": {
+    "phone_number": {
       "type": "string"
     },
-    "renderData": {
-      "type": "dynamiczone",
-      "components": [
-        "color.ng",
-        "font.segijn-font",
-        "mainconfig.nemelt-tohirgoo",
-        "resource.n-cz"
-      ]
+    "email": {
+      "type": "email"
+    },
+    "facebook_link": {
+      "type": "string"
+    },
+    "insta_link": {
+      "type": "string"
+    },
+    "linkden_link": {
+      "type": "string"
+    },
+    "copyright": {
+      "type": "string"
+    },
+    "Home": {
+      "type": "component",
+      "repeatable": false,
+      "component": "website-contents.home-content"
+    },
+    "our_services": {
+      "type": "component",
+      "repeatable": false,
+      "component": "website-contents.content"
+    },
+    "how_it_works": {
+      "type": "component",
+      "repeatable": false,
+      "component": "website-contents.how-it-works"
+    },
+    "trusted_partner": {
+      "type": "component",
+      "repeatable": false,
+      "component": "website-contents.trusted-partner"
+    },
+    "FeedBack": {
+      "type": "component",
+      "repeatable": false,
+      "component": "website-contents.customer-feedback"
     }
   }
 }

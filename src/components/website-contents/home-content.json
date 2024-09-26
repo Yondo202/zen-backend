@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_website_contents_home_contents",
+  "info": {
+    "displayName": "Home content",
+    "icon": "grid",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "sub_title": {
+      "type": "string"
+    }
+  }
+}

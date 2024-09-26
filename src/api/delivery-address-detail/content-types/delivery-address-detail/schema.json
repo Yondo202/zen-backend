@@ -40,12 +40,6 @@
       "type": "string",
       "required": true
     },
-    "checkout": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::checkout.checkout",
-      "inversedBy": "delivery_address_details"
-    },
     "core_type": {
       "type": "enumeration",
       "enum": [

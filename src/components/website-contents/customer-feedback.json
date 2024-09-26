@@ -1,18 +1,21 @@
 {
-  "collectionName": "components_seo_google_seos",
+  "collectionName": "components_website_contents_customer_feedbacks",
   "info": {
-    "displayName": "google-SEO",
-    "icon": "briefcase"
+    "displayName": "CustomerFeedback",
+    "icon": "database"
   },
   "options": {},
   "attributes": {
-    "seoTitle": {
+    "title": {
       "type": "string"
     },
-    "seoDescription": {
+    "description": {
       "type": "text"
     },
-    "seoMedia": {
+    "customer_name": {
+      "type": "string"
+    },
+    "image": {
       "allowedTypes": [
         "images",
         "files",

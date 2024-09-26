@@ -32,6 +32,16 @@
       "relation": "oneToOne",
       "target": "api::enquiry.enquiry",
       "inversedBy": "order"
+    },
+    "delivery_address_detail": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::delivery-address-detail.delivery-address-detail"
+    },
+    "pickup_address_detail": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::delivery-address-detail.delivery-address-detail"
     }
   }
 }
