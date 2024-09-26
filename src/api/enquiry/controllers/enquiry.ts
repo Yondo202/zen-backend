@@ -1017,7 +1017,6 @@ export default factories.createCoreController(
         }
       );
 
-
       const Model = `${body.vehicleInfo?.model?.make} ${body.vehicleInfo?.model?.original_model}`;
 
       await sendCustomEmail({
