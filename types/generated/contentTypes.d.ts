@@ -985,6 +985,7 @@ export interface ApiEnquiryEnquiry extends Schema.CollectionType {
   };
 }
 
+<<<<<<< HEAD
 export interface ApiOrderOrder extends Schema.CollectionType {
   collectionName: 'orders';
   info: {
@@ -1012,12 +1013,127 @@ export interface ApiOrderOrder extends Schema.CollectionType {
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::order.order',
+=======
+export interface ApiFooteridFooterid extends Schema.CollectionType {
+  collectionName: 'footer';
+  info: {
+    singularName: 'footerid';
+    pluralName: 'footer';
+    displayName: 'footer';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    data: Attribute.JSON;
+    pages: Attribute.Relation<
+      'api::footerid.footerid',
+      'oneToMany',
+      'api::pageid.pageid'
+    >;
+    name: Attribute.String;
+    isDefault: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::footerid.footerid',
+>>>>>>> parent of 6458dc1 (some chnages)
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
+<<<<<<< HEAD
       'api::order.order',
+=======
+      'api::footerid.footerid',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHeaderidHeaderid extends Schema.CollectionType {
+  collectionName: 'header';
+  info: {
+    singularName: 'headerid';
+    pluralName: 'header';
+    displayName: 'Header';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    data: Attribute.JSON;
+    pages: Attribute.Relation<
+      'api::headerid.headerid',
+      'oneToMany',
+      'api::pageid.pageid'
+    >;
+    name: Attribute.String;
+    isDefault: Attribute.Boolean & Attribute.DefaultTo<true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::headerid.headerid',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::headerid.headerid',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPageidPageid extends Schema.CollectionType {
+  collectionName: 'page';
+  info: {
+    singularName: 'pageid';
+    pluralName: 'page';
+    displayName: '\u0425\u0443\u0443\u0434\u0430\u0441 \u0443\u0434\u0438\u0440\u0434\u0430\u0445';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    isProtected: Attribute.Boolean & Attribute.DefaultTo<false>;
+    type: Attribute.Enumeration<['default']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'default'>;
+    SEO: Attribute.Component<'seo.google-seo'>;
+    slug: Attribute.String & Attribute.Required;
+    data: Attribute.JSON;
+    header: Attribute.Relation<
+      'api::pageid.pageid',
+      'manyToOne',
+      'api::headerid.headerid'
+    >;
+    footer: Attribute.Relation<
+      'api::pageid.pageid',
+      'manyToOne',
+      'api::footerid.footerid'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pageid.pageid',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pageid.pageid',
+>>>>>>> parent of 6458dc1 (some chnages)
       'oneToOne',
       'admin::user'
     > &
@@ -1047,7 +1163,13 @@ declare module '@strapi/types' {
       'api::config.config': ApiConfigConfig;
       'api::delivery-address-detail.delivery-address-detail': ApiDeliveryAddressDetailDeliveryAddressDetail;
       'api::enquiry.enquiry': ApiEnquiryEnquiry;
+<<<<<<< HEAD
       'api::order.order': ApiOrderOrder;
+=======
+      'api::footerid.footerid': ApiFooteridFooterid;
+      'api::headerid.headerid': ApiHeaderidHeaderid;
+      'api::pageid.pageid': ApiPageidPageid;
+>>>>>>> parent of 6458dc1 (some chnages)
     }
   }
 }
