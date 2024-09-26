@@ -788,28 +788,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiBlogBlog extends Schema.CollectionType {
-  collectionName: 'blogs';
-  info: {
-    singularName: 'blog';
-    pluralName: 'blogs';
-    displayName: 'blogs';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
 export interface ApiCheckoutCheckout extends Schema.CollectionType {
   collectionName: 'checkouts';
   info: {
@@ -970,6 +948,26 @@ export interface ApiEnquiryEnquiry extends Schema.CollectionType {
       >;
     status: Attribute.Enumeration<['pending', 'informed', 'paid', 'done']> &
       Attribute.DefaultTo<'pending'>;
+    order: Attribute.Relation<
+      'api::enquiry.enquiry',
+      'oneToOne',
+      'api::order.order'
+    >;
+    checkout: Attribute.Relation<
+      'api::enquiry.enquiry',
+      'oneToOne',
+      'api::checkout.checkout'
+    >;
+    delivery_address_detail: Attribute.Relation<
+      'api::enquiry.enquiry',
+      'oneToOne',
+      'api::delivery-address-detail.delivery-address-detail'
+    >;
+    pickup_address_detail: Attribute.Relation<
+      'api::enquiry.enquiry',
+      'oneToOne',
+      'api::delivery-address-detail.delivery-address-detail'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -980,80 +978,6 @@ export interface ApiEnquiryEnquiry extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::enquiry.enquiry',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiFooteridFooterid extends Schema.CollectionType {
-  collectionName: 'footer';
-  info: {
-    singularName: 'footerid';
-    pluralName: 'footer';
-    displayName: 'footer';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    data: Attribute.JSON;
-    pages: Attribute.Relation<
-      'api::footerid.footerid',
-      'oneToMany',
-      'api::pageid.pageid'
-    >;
-    name: Attribute.String;
-    isDefault: Attribute.Boolean & Attribute.DefaultTo<false>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::footerid.footerid',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::footerid.footerid',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiHeaderidHeaderid extends Schema.CollectionType {
-  collectionName: 'header';
-  info: {
-    singularName: 'headerid';
-    pluralName: 'header';
-    displayName: 'Header';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    data: Attribute.JSON;
-    pages: Attribute.Relation<
-      'api::headerid.headerid',
-      'oneToMany',
-      'api::pageid.pageid'
-    >;
-    name: Attribute.String;
-    isDefault: Attribute.Boolean & Attribute.DefaultTo<true>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::headerid.headerid',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::headerid.headerid',
       'oneToOne',
       'admin::user'
     > &
@@ -1074,11 +998,15 @@ export interface ApiOrderOrder extends Schema.CollectionType {
   };
   attributes: {
     stripe_id: Attribute.String;
-    enquiry: Attribute.JSON;
     payment_status: Attribute.String;
     customer_email: Attribute.Email;
     amount_total: Attribute.Float;
     payment_url: Attribute.Text;
+    enquiry: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'api::enquiry.enquiry'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1090,54 +1018,6 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::order.order',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiPageidPageid extends Schema.CollectionType {
-  collectionName: 'page';
-  info: {
-    singularName: 'pageid';
-    pluralName: 'page';
-    displayName: '\u0425\u0443\u0443\u0434\u0430\u0441 \u0443\u0434\u0438\u0440\u0434\u0430\u0445';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    isProtected: Attribute.Boolean & Attribute.DefaultTo<false>;
-    type: Attribute.Enumeration<['default']> &
-      Attribute.Required &
-      Attribute.DefaultTo<'default'>;
-    SEO: Attribute.Component<'seo.google-seo'>;
-    slug: Attribute.String & Attribute.Required;
-    data: Attribute.JSON;
-    header: Attribute.Relation<
-      'api::pageid.pageid',
-      'manyToOne',
-      'api::headerid.headerid'
-    >;
-    footer: Attribute.Relation<
-      'api::pageid.pageid',
-      'manyToOne',
-      'api::footerid.footerid'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pageid.pageid',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pageid.pageid',
       'oneToOne',
       'admin::user'
     > &
@@ -1163,15 +1043,11 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::blog.blog': ApiBlogBlog;
       'api::checkout.checkout': ApiCheckoutCheckout;
       'api::config.config': ApiConfigConfig;
       'api::delivery-address-detail.delivery-address-detail': ApiDeliveryAddressDetailDeliveryAddressDetail;
       'api::enquiry.enquiry': ApiEnquiryEnquiry;
-      'api::footerid.footerid': ApiFooteridFooterid;
-      'api::headerid.headerid': ApiHeaderidHeaderid;
       'api::order.order': ApiOrderOrder;
-      'api::pageid.pageid': ApiPageidPageid;
     }
   }
 }

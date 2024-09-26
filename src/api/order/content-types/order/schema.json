@@ -15,9 +15,6 @@
     "stripe_id": {
       "type": "string"
     },
-    "enquiry": {
-      "type": "json"
-    },
     "payment_status": {
       "type": "string"
     },
@@ -29,6 +26,12 @@
     },
     "payment_url": {
       "type": "text"
+    },
+    "enquiry": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::enquiry.enquiry",
+      "inversedBy": "order"
     }
   }
 }
