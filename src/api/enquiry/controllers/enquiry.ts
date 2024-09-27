@@ -956,7 +956,7 @@ style="
 </table>
 </div>`;
 
-const sendCustomEmail = ({ to, subject, html }: TSendCustom) => {
+export const sendCustomEmail = ({ to, subject, html }: TSendCustom) => {
   return new Promise((res, rej) => {
     // Create a transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
@@ -986,7 +986,7 @@ const sendCustomEmail = ({ to, subject, html }: TSendCustom) => {
       subject, // Subject line
       //   text, // Plain text body
       html, // HTML body
-    };
+    }
 
     // Send the email
     transporter.sendMail(mailOptions, (error, ) => { //info

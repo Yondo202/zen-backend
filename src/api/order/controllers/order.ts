@@ -5,10 +5,44 @@
 import { factories } from "@strapi/strapi";
 import Stripe from "stripe";
 const stripe = new Stripe(`sk_test_${process.env.STRIPE_SECRET_KEY}`);
+import { sendCustomEmail } from "../../enquiry/controllers/enquiry";
+
+const HTMLTemplate =
+  () => `<div style="font-family: Arial, Helvetica Neue, Helvetica; width:100%; padding: 20px; background-color: #e6eff6; display: flex;">
+<div style="background-color: #fff; padding: 40px 15px; display: flex; flex-direction: column;">
+  <h2>Your payment has been completed</h2>
+</div>
+</div>`;
 
 export default factories.createCoreController(
   "api::order.order",
   ({ strapi }) => ({
+    async update(ctx) {
+      const body = { ...ctx.request?.body?.data };
+      // const enquiryItem = await strapi.entityService.update()
+      // console.log(body?.payment_status)
+      // console.log(body?.orderId, "orderId")
+
+      const updatedOrder = await strapi.entityService.update(
+        "api::order.order",
+        body?.orderId,
+        { 
+          data: {
+            payment_status: body.payment_status,
+          },
+        }
+      );
+
+      await sendCustomEmail({
+        to: updatedOrder.customer_email,
+        // to: "yondooo33@gmail.com",
+        subject: `Your payment has been completed`,
+        // text: "tex tbody",
+        html: HTMLTemplate(),
+      });
+
+      return updatedOrder;
+    },
     async create(ctx) {
       const body = { ...ctx.request?.body?.data };
 
