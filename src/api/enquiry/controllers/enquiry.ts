@@ -989,7 +989,7 @@ const sendCustomEmail = ({ to, subject, html }: TSendCustom) => {
     };
 
     // Send the email
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, (error, ) => { //info
       if (error) {
         rej(error);
         return console.log(error);

@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_website_contents_pages_headers",
+  "info": {
+    "displayName": "PagesHeader",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "background": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "kind": "singleType",
+  "collectionName": "car_shipping_costs",
+  "info": {
+    "singularName": "car-shipping-cost",
+    "pluralName": "car-shipping-costs",
+    "displayName": "Car Shipping Cost",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "website-contents.pages-header"
+    },
+    "cost_actually": {
+      "type": "component",
+      "repeatable": false,
+      "component": "website-contents.trusted-partner"
+    },
+    "more_info": {
+      "type": "component",
+      "repeatable": false,
+      "component": "website-contents.how-it-works"
+    }
+  }
+}

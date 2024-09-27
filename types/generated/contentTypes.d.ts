@@ -788,6 +788,69 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiAboutAbout extends Schema.SingleType {
+  collectionName: 'abouts';
+  info: {
+    singularName: 'about';
+    pluralName: 'abouts';
+    displayName: 'About';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Header: Attribute.Component<'website-contents.pages-header'>;
+    card_info: Attribute.Component<'website-contents.child-contents', true>;
+    more_info: Attribute.Component<'website-contents.child-contents', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::about.about',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::about.about',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCarShippingCostCarShippingCost extends Schema.SingleType {
+  collectionName: 'car_shipping_costs';
+  info: {
+    singularName: 'car-shipping-cost';
+    pluralName: 'car-shipping-costs';
+    displayName: 'Car Shipping Cost';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Header: Attribute.Component<'website-contents.pages-header'>;
+    cost_actually: Attribute.Component<'website-contents.trusted-partner'>;
+    more_info: Attribute.Component<'website-contents.how-it-works'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::car-shipping-cost.car-shipping-cost',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::car-shipping-cost.car-shipping-cost',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCheckoutCheckout extends Schema.CollectionType {
   collectionName: 'checkouts';
   info: {
@@ -970,6 +1033,38 @@ export interface ApiEnquiryEnquiry extends Schema.CollectionType {
   };
 }
 
+export interface ApiHowToShipACarHowToShipACar extends Schema.SingleType {
+  collectionName: 'how_to_ship_a_cars';
+  info: {
+    singularName: 'how-to-ship-a-car';
+    pluralName: 'how-to-ship-a-cars';
+    displayName: 'How to Ship a car';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    easy_steps_to_get_going: Attribute.Component<'website-contents.trusted-partner'>;
+    how_it_works: Attribute.Component<'website-contents.how-it-works'>;
+    Header: Attribute.Component<'website-contents.pages-header'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::how-to-ship-a-car.how-to-ship-a-car',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::how-to-ship-a-car.how-to-ship-a-car',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiOrderOrder extends Schema.CollectionType {
   collectionName: 'orders';
   info: {
@@ -1020,6 +1115,37 @@ export interface ApiOrderOrder extends Schema.CollectionType {
   };
 }
 
+export interface ApiServiceService extends Schema.SingleType {
+  collectionName: 'services';
+  info: {
+    singularName: 'service';
+    pluralName: 'services';
+    displayName: 'Services';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Header: Attribute.Component<'website-contents.pages-header'>;
+    card_info: Attribute.Component<'website-contents.child-contents', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1038,11 +1164,15 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::about.about': ApiAboutAbout;
+      'api::car-shipping-cost.car-shipping-cost': ApiCarShippingCostCarShippingCost;
       'api::checkout.checkout': ApiCheckoutCheckout;
       'api::config.config': ApiConfigConfig;
       'api::delivery-address-detail.delivery-address-detail': ApiDeliveryAddressDetailDeliveryAddressDetail;
       'api::enquiry.enquiry': ApiEnquiryEnquiry;
+      'api::how-to-ship-a-car.how-to-ship-a-car': ApiHowToShipACarHowToShipACar;
       'api::order.order': ApiOrderOrder;
+      'api::service.service': ApiServiceService;
     }
   }
 }

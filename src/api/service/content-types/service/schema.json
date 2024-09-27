@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "services",
+  "info": {
+    "singularName": "service",
+    "pluralName": "services",
+    "displayName": "Services",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "website-contents.pages-header"
+    },
+    "card_info": {
+      "type": "component",
+      "repeatable": true,
+      "component": "website-contents.child-contents"
+    }
+  }
+}

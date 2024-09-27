@@ -1,0 +1,31 @@
+{
+  "kind": "singleType",
+  "collectionName": "how_to_ship_a_cars",
+  "info": {
+    "singularName": "how-to-ship-a-car",
+    "pluralName": "how-to-ship-a-cars",
+    "displayName": "How to Ship a car",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "easy_steps_to_get_going": {
+      "type": "component",
+      "repeatable": false,
+      "component": "website-contents.trusted-partner"
+    },
+    "how_it_works": {
+      "type": "component",
+      "repeatable": false,
+      "component": "website-contents.how-it-works"
+    },
+    "Header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "website-contents.pages-header"
+    }
+  }
+}

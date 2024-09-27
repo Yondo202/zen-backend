@@ -129,11 +129,13 @@ export interface WebsiteContentsChildContents extends Schema.Component {
   info: {
     displayName: 'Child-contents';
     icon: 'filter';
+    description: '';
   };
   attributes: {
     title: Attribute.String;
     description: Attribute.Text;
     image: Attribute.Media;
+    TAG: Attribute.String;
   };
 }
 
@@ -198,6 +200,18 @@ export interface WebsiteContentsHowItWorks extends Schema.Component {
   };
 }
 
+export interface WebsiteContentsPagesHeader extends Schema.Component {
+  collectionName: 'components_website_contents_pages_headers';
+  info: {
+    displayName: 'PagesHeader';
+    icon: 'bulletList';
+  };
+  attributes: {
+    title: Attribute.String;
+    background: Attribute.Media;
+  };
+}
+
 export interface WebsiteContentsTrustedPartner extends Schema.Component {
   collectionName: 'components_website_contents_trusted_partners';
   info: {
@@ -229,6 +243,7 @@ declare module '@strapi/types' {
       'website-contents.customer-feedback': WebsiteContentsCustomerFeedback;
       'website-contents.home-content': WebsiteContentsHomeContent;
       'website-contents.how-it-works': WebsiteContentsHowItWorks;
+      'website-contents.pages-header': WebsiteContentsPagesHeader;
       'website-contents.trusted-partner': WebsiteContentsTrustedPartner;
     }
   }
