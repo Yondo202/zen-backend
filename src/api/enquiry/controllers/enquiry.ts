@@ -986,10 +986,11 @@ export const sendCustomEmail = ({ to, subject, html }: TSendCustom) => {
       subject, // Subject line
       //   text, // Plain text body
       html, // HTML body
-    }
+    };
 
     // Send the email
-    transporter.sendMail(mailOptions, (error, ) => { //info
+    transporter.sendMail(mailOptions, (error) => {
+      //info
       if (error) {
         rej(error);
         return console.log(error);
@@ -1028,7 +1029,7 @@ export default factories.createCoreController(
           // subject: Model,
           enqNumber: enqNumber,
           enquiry: body,
-          enqid:created.id
+          enqid: created.id,
         }),
       });
 

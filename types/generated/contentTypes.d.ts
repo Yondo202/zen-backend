@@ -1087,16 +1087,6 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       'oneToOne',
       'api::enquiry.enquiry'
     >;
-    delivery_address_detail: Attribute.Relation<
-      'api::order.order',
-      'oneToOne',
-      'api::delivery-address-detail.delivery-address-detail'
-    >;
-    pickup_address_detail: Attribute.Relation<
-      'api::order.order',
-      'oneToOne',
-      'api::delivery-address-detail.delivery-address-detail'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
