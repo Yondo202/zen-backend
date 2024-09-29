@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "base_rates",
+  "info": {
+    "singularName": "base-rate",
+    "pluralName": "base-rates",
+    "displayName": "Base rate",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "enclosed": {
+      "type": "decimal"
+    },
+    "vehicle_types": {
+      "type": "component",
+      "repeatable": true,
+      "component": "enquiry-config.vehicle-types"
+    }
+  }
+}

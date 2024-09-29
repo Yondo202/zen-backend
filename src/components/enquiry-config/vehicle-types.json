@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_enquiry_config_vehicle_types",
+  "info": {
+    "displayName": "VehicleTypes",
+    "icon": "bulletList",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "enumeration",
+      "enum": [
+        "cargo van large",
+        "cargo van small",
+        "classic cars large",
+        "mini-van",
+        "passenger van (8-12 people)",
+        "passenger van (over 12 people)",
+        "pickup crew cab",
+        "pickup dually",
+        "pickup ext cab",
+        "pickup small",
+        "sedan compact",
+        "sedan large",
+        "sedan midsize",
+        "sedan small",
+        "suv midsize"
+      ],
+      "required": true
+    },
+    "base_rate": {
+      "type": "decimal",
+      "required": true
+    }
+  }
+}

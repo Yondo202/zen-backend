@@ -11,8 +11,11 @@ type TSendCustom = {
   text?: string;
   html?: string;
 };
+
+// #${enqNumber}
+// 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
 // Car Shipping Quote #<span style="line-height:inherit;color:#437ad9">19048841</span> for your Acura Integra</p>
-const HTMLTemplate = ({ enqNumber, enquiry, enqid }) => ` <div
+export const HTMLTemplate = ({ header, enquiry, enqid }) => ` <div
 style="
   line-height: inherit;
   margin: 0;
@@ -134,12 +137,7 @@ style="
                             font-weight: bold;
                           "
                         >
-                          Car Shipping Quote #<span
-                            style="line-height: inherit; color: #437ad9"
-                            >${enqNumber}</span
-                          >
-                          for your ${enquiry.vehicleInfo?.model?.make}
-                          ${enquiry.vehicleInfo?.model?.original_model}
+                          ${header}
                         </p>
                       </div>
                     </div>
@@ -347,7 +345,7 @@ style="
                               padding-bottom: 0;
                             "
                           >
-                            Summary for Quote #${enqNumber}
+                            Summary for Quote:
                           </p>
                           <table
                             border="0"
@@ -960,18 +958,18 @@ export const sendCustomEmail = ({ to, subject, html }: TSendCustom) => {
   return new Promise((res, rej) => {
     // Create a transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com", // Replace with your SMTP server address
+      host: process.env.SMTP_HOST??"smtp.gmail.com", // Replace with your SMTP server address
       //   service: "gmail", // Replace with your SMTP server address
-      port: 587, // Replace with your SMTP server port (usually 587 for TLS, 465 for SSL, or 25 for non-encrypted)
-      secure: false, // true for 465, false for other ports
+      port: process.env.SMTP_PORT??587, // Replace with your SMTP server port (usually 587 for TLS, 465 for SSL, or 25 for non-encrypted)
+      secure: process.env.SMTP_SECURE??false, // true for 465, false for other ports
       //   auth: {
       //     user: "yondooo61@gmail.com", // Replace with your email
       //     pass: "Killer951988", // Replace with your email password
       //   },
       auth: {
-        user: "yondooo61@gmail.com", // Replace with your email
+        user: process.env.SMTP_EMAIL??"yondooo61@gmail.com", // Replace with your email
         // pass: "P@$$2022!-+-+", // Replace with your email password
-        pass: "wiij szbz giiw kbrp", // Replace with your email password
+        pass: process.env.SMTP_PASSWORD??"wiij szbz giiw kbrp", // Replace with your email password
         // password: "P@$$2022!-+-+", // Replace with your email password
       },
       tls: { rejectUnauthorized: false },
@@ -980,7 +978,7 @@ export const sendCustomEmail = ({ to, subject, html }: TSendCustom) => {
 
     // Define the email options
     let mailOptions = {
-      from: "Service <noreply.yondooo61@gmail.com", // Sender address
+      from: `Zen Auto transport <noreply.${process.env.SMTP_EMAIL}`, // Sender address
       //   from: "test <noreply.test@gmail.com>", // Sender address
       to: to, // List of receivers
       subject, // Subject line
@@ -1027,7 +1025,13 @@ export default factories.createCoreController(
         // text: "tex tbody",
         html: HTMLTemplate({
           // subject: Model,
-          enqNumber: enqNumber,
+          // enqNumber: enqNumber,
+          header: `Car Shipping Quote #<span
+            style="line-height: inherit; color: #437ad9"
+            >${enqNumber}</span
+          >
+          for your ${body.vehicleInfo?.model?.make}
+          ${body.vehicleInfo?.model?.original_model}`,
           enquiry: body,
           enqid: created.id,
         }),

@@ -4,21 +4,24 @@
 
 import { factories } from "@strapi/strapi";
 import Stripe from "stripe";
-const stripe = new Stripe(`sk_test_${process.env.STRIPE_SECRET_KEY}`);
-import { sendCustomEmail } from "../../enquiry/controllers/enquiry";
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+import {
+  sendCustomEmail,
+  HTMLTemplate,
+} from "../../enquiry/controllers/enquiry";
 
-const HTMLTemplate =
-  () => `<div style="font-family: Arial, Helvetica Neue, Helvetica; width:100%; padding: 20px; background-color: #e6eff6; display: flex;">
-<div style="background-color: #fff; padding: 40px 15px; display: flex; flex-direction: column;">
-  <h2>Your payment has been completed</h2>
-</div>
-</div>`;
+// const HTMLTemplate =
+//   () => `<div style="font-family: Arial, Helvetica Neue, Helvetica; width:100%; padding: 20px; background-color: #e6eff6; display: flex;">
+// <div style="background-color: #fff; padding: 40px 15px; display: flex; flex-direction: column;">
+//   <h2>Your payment has been completed</h2>
+// </div>
+// </div>`;
 
 export default factories.createCoreController(
   "api::order.order",
   ({ strapi }) => ({
     async update(ctx) {
-      const body = { ...ctx.request?.body?.data };
+      const body = { ...ctx.request?.body?.data, orderId: ctx.params?.id };
       // const enquiryItem = await strapi.entityService.update()
       // console.log(body?.payment_status)
       // console.log(body?.orderId, "orderId")
@@ -26,7 +29,7 @@ export default factories.createCoreController(
       const updatedOrder = await strapi.entityService.update(
         "api::order.order",
         body?.orderId,
-        { 
+        {
           data: {
             payment_status: body.payment_status,
           },
@@ -35,10 +38,16 @@ export default factories.createCoreController(
 
       await sendCustomEmail({
         to: updatedOrder.customer_email,
-        // to: "yondooo33@gmail.com",
         subject: `Your payment has been completed`,
-        // text: "tex tbody",
-        html: HTMLTemplate(),
+        html: HTMLTemplate({
+          // subject: Model,
+          // enqNumber: enqNumber,
+          header: `Your payment has been <span
+            style="line-height: inherit; color: #437ad9"
+            >completed</span>`,
+          enquiry: body?.enqData,
+          enqid: body?.enqData.id,
+        }),
       });
 
       return updatedOrder;
@@ -76,7 +85,7 @@ export default factories.createCoreController(
                 name: `Enquiry number: ${enquiryItem?.enquiry_number}`,
               },
               //   unit_amount: entries.cost.calculatedCost,
-              unit_amount: Math.ceil(enquiryItem.cost.calculatedCost) * 100,
+              unit_amount: enquiryItem.cost.calculatedCost * 100,
             },
             quantity: 1,
           },

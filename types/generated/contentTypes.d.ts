@@ -819,6 +819,37 @@ export interface ApiAboutAbout extends Schema.SingleType {
   };
 }
 
+export interface ApiBaseRateBaseRate extends Schema.SingleType {
+  collectionName: 'base_rates';
+  info: {
+    singularName: 'base-rate';
+    pluralName: 'base-rates';
+    displayName: 'Base rate';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    enclosed: Attribute.Decimal;
+    vehicle_types: Attribute.Component<'enquiry-config.vehicle-types', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::base-rate.base-rate',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::base-rate.base-rate',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCarShippingCostCarShippingCost extends Schema.SingleType {
   collectionName: 'car_shipping_costs';
   info: {
@@ -1155,6 +1186,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::about.about': ApiAboutAbout;
+      'api::base-rate.base-rate': ApiBaseRateBaseRate;
       'api::car-shipping-cost.car-shipping-cost': ApiCarShippingCostCarShippingCost;
       'api::checkout.checkout': ApiCheckoutCheckout;
       'api::config.config': ApiConfigConfig;

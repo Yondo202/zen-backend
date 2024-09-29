@@ -84,6 +84,38 @@ export interface EnquiryConfigVehicleInfo extends Schema.Component {
   };
 }
 
+export interface EnquiryConfigVehicleTypes extends Schema.Component {
+  collectionName: 'components_enquiry_config_vehicle_types';
+  info: {
+    displayName: 'VehicleTypes';
+    icon: 'bulletList';
+    description: '';
+  };
+  attributes: {
+    name: Attribute.Enumeration<
+      [
+        'cargo van large',
+        'cargo van small',
+        'classic cars large',
+        'mini-van',
+        'passenger van (8-12 people)',
+        'passenger van (over 12 people)',
+        'pickup crew cab',
+        'pickup dually',
+        'pickup ext cab',
+        'pickup small',
+        'sedan compact',
+        'sedan large',
+        'sedan midsize',
+        'sedan small',
+        'suv midsize'
+      ]
+    > &
+      Attribute.Required;
+    base_rate: Attribute.Decimal & Attribute.Required;
+  };
+}
+
 export interface EnquiryConfigZipInfo extends Schema.Component {
   collectionName: 'components_enquiry_config_zip_infos';
   info: {
@@ -235,6 +267,7 @@ declare module '@strapi/types' {
       'enquiry-config.make': EnquiryConfigMake;
       'enquiry-config.model': EnquiryConfigModel;
       'enquiry-config.vehicle-info': EnquiryConfigVehicleInfo;
+      'enquiry-config.vehicle-types': EnquiryConfigVehicleTypes;
       'enquiry-config.zip-info': EnquiryConfigZipInfo;
       'resource.n-cz': ResourceNCz;
       'source.source': SourceSource;
