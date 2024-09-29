@@ -13,7 +13,6 @@ type TSendCustom = {
 };
 
 // #${enqNumber}
-// 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
 // Car Shipping Quote #<span style="line-height:inherit;color:#437ad9">19048841</span> for your Acura Integra</p>
 export const HTMLTemplate = ({ header, enquiry, enqid }) => ` <div
 style="
