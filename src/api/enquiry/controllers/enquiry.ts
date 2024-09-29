@@ -12,8 +12,6 @@ type TSendCustom = {
   html?: string;
 };
 
-// #${enqNumber}
-// Car Shipping Quote #<span style="line-height:inherit;color:#437ad9">19048841</span> for your Acura Integra</p>
 export const HTMLTemplate = ({ header, enquiry, enqid }) => ` <div
 style="
   line-height: inherit;
