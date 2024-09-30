@@ -3,14 +3,15 @@
  */
 
 import { factories } from "@strapi/strapi";
-const nodemailer = require("nodemailer");
+// import nodemailer from "nodemailer";
+// const nodemailer = require("nodemailer");
 
-type TSendCustom = {
-  to: string;
-  subject: string;
-  text?: string;
-  html?: string;
-};
+// type TSendCustom = {
+//   to: string;
+//   subject: string;
+//   text?: string;
+//   html?: string;
+// };
 
 export const HTMLTemplate = ({ header, enquiry, enqid }) => ` <div
 style="
@@ -951,52 +952,6 @@ style="
 </table>
 </div>`;
 
-export const sendCustomEmail = ({ to, subject, html }: TSendCustom) => {
-  return new Promise((res, rej) => {
-    // Create a transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST??"smtp.gmail.com", // Replace with your SMTP server address
-      //   service: "gmail", // Replace with your SMTP server address
-      port: process.env.SMTP_PORT??587, // Replace with your SMTP server port (usually 587 for TLS, 465 for SSL, or 25 for non-encrypted)
-      secure: process.env.SMTP_SECURE??false, // true for 465, false for other ports
-      //   auth: {
-      //     user: "yondooo61@gmail.com", // Replace with your email
-      //     pass: "Killer951988", // Replace with your email password
-      //   },
-      auth: {
-        user: process.env.SMTP_EMAIL??"yondooo61@gmail.com", // Replace with your email
-        // pass: "P@$$2022!-+-+", // Replace with your email password
-        pass: process.env.SMTP_PASSWORD??"wiij szbz giiw kbrp", // Replace with your email password
-        // password: "P@$$2022!-+-+", // Replace with your email password
-      },
-      tls: { rejectUnauthorized: false },
-      //   requireTLS: true,
-    });
-
-    // Define the email options
-    let mailOptions = {
-      from: `Zen Auto transport <noreply.${process.env.SMTP_EMAIL}`, // Sender address
-      //   from: "test <noreply.test@gmail.com>", // Sender address
-      to: to, // List of receivers
-      subject, // Subject line
-      //   text, // Plain text body
-      html, // HTML body
-    };
-
-    // Send the email
-    transporter.sendMail(mailOptions, (error) => {
-      //info
-      if (error) {
-        rej(error);
-        return console.log(error);
-      }
-      res("OK");
-      // console.log("Message sent: %s", info.messageId);
-      // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    });
-  });
-};
-
 export default factories.createCoreController(
   "api::enquiry.enquiry",
   ({ strapi }) => ({
@@ -1015,36 +970,24 @@ export default factories.createCoreController(
 
       const Model = `${body.vehicleInfo?.model?.make} ${body.vehicleInfo?.model?.original_model}`;
 
-      await sendCustomEmail({
-        to: body.dateInfo?.email,
-        // to: "yondooo33@gmail.com",
-        subject: `Car Shipping Quote #${enqNumber} for your ${Model}`,
-        // text: "tex tbody",
-        html: HTMLTemplate({
-          // subject: Model,
-          // enqNumber: enqNumber,
-          header: `Car Shipping Quote #<span
+      await strapi
+        .plugin("email")
+        .service("email")
+        .send({
+          from: process.env.SMTP_EMAIL,
+          to: body.dateInfo?.email,
+          subject: `Car Shipping Quote #${enqNumber} for your ${Model}`,
+          html: HTMLTemplate({
+            header: `Car Shipping Quote #<span
             style="line-height: inherit; color: #437ad9"
             >${enqNumber}</span
           >
           for your ${body.vehicleInfo?.model?.make}
           ${body.vehicleInfo?.model?.original_model}`,
-          enquiry: body,
-          enqid: created.id,
-        }),
-      });
-
-      //   console.log(responseMail, "---->responseMail");
-
-      // const order = await strapi.entityService.findOne( "api::pageid.pageid", id);
-      //   const entries = await strapi.entityService.update(
-      //     "api::pageid.pageid",
-      //     id,
-      //     {
-      //       data: ctx.request.body,
-      //     }
-      //   );
-
+            enquiry: body,
+            enqid: created.id,
+          }),
+        });
       return created;
     },
   })
