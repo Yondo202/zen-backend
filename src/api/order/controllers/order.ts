@@ -5,7 +5,10 @@
 import { factories } from "@strapi/strapi";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-import { HTMLTemplate } from "../../enquiry/controllers/enquiry";
+import {
+  HTMLTemplate,
+  sendCustomEmail,
+} from "../../enquiry/controllers/enquiry";
 
 export default factories.createCoreController(
   "api::order.order",
@@ -22,23 +25,45 @@ export default factories.createCoreController(
         }
       );
 
-      await strapi
-        .plugin("email")
-        .service("email")
-        .send({
+      // await strapi
+      //   .plugin("email")
+      //   .service("email")
+      //   .send({
+      //     from: process.env.SMTP_EMAIL,
+      //     to: updatedOrder.customer_email,
+      //     subject: `Your payment has been completed`,
+      //     html: HTMLTemplate({
+      //       // subject: Model,
+      //       // enqNumber: enqNumber,
+      //       header: `Your payment has been <span
+      //         style="line-height: inherit; color: #437ad9"
+      //         >completed</span>`,
+      //       enquiry: body?.enqData,
+      //       enqid: body?.enqData.id,
+      //     }),
+      //   });
+
+      const finalMail = ({ toMail }:{ toMail:string }) => {
+        return {
           from: process.env.SMTP_EMAIL,
-          to: updatedOrder.customer_email,
+          to: toMail,
           subject: `Your payment has been completed`,
           html: HTMLTemplate({
             // subject: Model,
             // enqNumber: enqNumber,
-            header: `Your payment has been <span
+            header: `Congratulations! Your Booking is <span
               style="line-height: inherit; color: #437ad9"
-              >completed</span>`,
+              >complete!</span>`,
             enquiry: body?.enqData,
+            redirectHead: `View confirmation page`,
+            detailTitle: `Order: #${body?.enqData?.enquiry_number}`,
             enqid: body?.enqData.id,
           }),
-        });
+        };
+      };
+
+      await sendCustomEmail(finalMail({ toMail:updatedOrder.customer_email }));
+      await sendCustomEmail(finalMail({ toMail:process.env.SMTP_EMAIL }));
 
       return updatedOrder;
     },

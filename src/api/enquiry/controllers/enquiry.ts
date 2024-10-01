@@ -3,17 +3,19 @@
  */
 
 import { factories } from "@strapi/strapi";
+const nodemailer = require("nodemailer");
 // import nodemailer from "nodemailer";
 // const nodemailer = require("nodemailer");
 
-// type TSendCustom = {
-//   to: string;
-//   subject: string;
-//   text?: string;
-//   html?: string;
-// };
+type TSendCustom = {
+  to: string;
+  from: string;
+  subject: string;
+  text?: string;
+  html?: string;
+};
 
-export const HTMLTemplate = ({ header, enquiry, enqid }) => ` <div
+export const HTMLTemplate = ({ header, enquiry, enqid, redirectHead, detailTitle }) => ` <div
 style="
   line-height: inherit;
   margin: 0;
@@ -228,7 +230,7 @@ style="
                               text-decoration: none;
                             "
                             target="_blank"
-                            >View Your Quote &gt; &gt;</a
+                            >${redirectHead} &gt; &gt;</a
                           >
                         </center>
                         <table
@@ -343,7 +345,7 @@ style="
                               padding-bottom: 0;
                             "
                           >
-                            Summary for Quote:
+                            ${detailTitle}
                           </p>
                           <table
                             border="0"
@@ -952,6 +954,60 @@ style="
 </table>
 </div>`;
 
+// const mailTransport = nodemailer.createTransport({
+//   host: "smtpout.secureserver.net",
+//   secure: true,
+//   secureConnection: false, // TLS requires secureConnection to be false
+//   tls: {
+//       ciphers:'SSLv3'
+//   },
+//   requireTLS:true,
+//   port: 465,
+//   debug: true,
+//   auth: {
+//       user: "put your godaddy hosted email here",
+//       pass: "put your email password here"
+//   }
+// });
+
+export const sendCustomEmail = ({ to, subject, html, from }: TSendCustom) => {
+  return new Promise((res, rej) => {
+    // Create a transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT),
+      auth: {
+        user: process.env.SMTP_EMAIL,
+        pass: process.env.SMTP_PASSWORD,
+      },
+      // secure: process.env.SMTP_SECURE,
+      secureConnection: Boolean(process.env.SMTP_SECURE),
+      secure: false,
+    });
+
+    // Define the email options
+    let mailOptions = {
+      from,
+      //   from: "test <noreply.test@gmail.com>", // Sender address
+      to, // List of receivers
+      subject,
+      html,
+    };
+
+    // Send the email
+    transporter.sendMail(mailOptions, (error) => {
+      //info
+      if (error) {
+        rej(error);
+        return console.log(error);
+      }
+      res("OK");
+      // console.log("Message sent: %s", info.messageId);
+      // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    });
+  });
+};
+
 export default factories.createCoreController(
   "api::enquiry.enquiry",
   ({ strapi }) => ({
@@ -969,29 +1025,48 @@ export default factories.createCoreController(
       );
 
       const Model = `${body.vehicleInfo?.model?.make} ${body.vehicleInfo?.model?.original_model}`;
-      try {
-        await strapi
-          .plugin("email")
-          .service("email")
-          .send({
-            from: process.env.SMTP_EMAIL,
-            to: body.dateInfo?.email,
-            subject: `Car Shipping Quote #${enqNumber} for your ${Model}`,
-            html: HTMLTemplate({
-              header: `Car Shipping Quote #<span
+
+      await sendCustomEmail({
+        from: process.env.SMTP_EMAIL,
+        to: body.dateInfo?.email,
+        subject: `Car Shipping Quote #${enqNumber} for your ${Model}`,
+        html: HTMLTemplate({
+          header: `Car Shipping Quote #<span
               style="line-height: inherit; color: #437ad9"
               >${enqNumber}</span
             >
             for your ${body.vehicleInfo?.model?.make}
             ${body.vehicleInfo?.model?.original_model}`,
-              enquiry: body,
-              enqid: created.id,
-            }),
-          });
-        console.log("mail sent");
-      } catch (error) {
-        console.log("mail send error->", error);
-      }
+          enquiry: body,
+          redirectHead:`View Your Quote`,
+          detailTitle:`Summary for Quote: #${enqNumber}`,
+          enqid: created.id,
+        }),
+      });
+
+      // try {
+      //   await strapi
+      //     .plugin("email")
+      //     .service("email")
+      //     .send({
+      //       from: process.env.SMTP_EMAIL,
+      //       to: body.dateInfo?.email,
+      //       subject: `Car Shipping Quote #${enqNumber} for your ${Model}`,
+      //       html: HTMLTemplate({
+      //         header: `Car Shipping Quote #<span
+      //         style="line-height: inherit; color: #437ad9"
+      //         >${enqNumber}</span
+      //       >
+      //       for your ${body.vehicleInfo?.model?.make}
+      //       ${body.vehicleInfo?.model?.original_model}`,
+      //         enquiry: body,
+      //         enqid: created.id,
+      //       }),
+      //     });
+      //   console.log("mail sent");
+      // } catch (error) {
+      //   console.log("mail send error->", error);
+      // }
       return created;
     },
   })
