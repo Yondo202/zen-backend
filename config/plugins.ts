@@ -16,7 +16,8 @@ export default ({ env }) => ({
           pass: env("SMTP_PASSWORD"),
         },
         // secure: process.env.SMTP_SECURE,
-        secureConnection: Boolean(env("SMTP_SECURE", true)) ,
+        secureConnection: Boolean(env("SMTP_SECURE", true)),
+        secure: false
       },
     },
   },

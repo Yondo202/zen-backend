@@ -969,25 +969,29 @@ export default factories.createCoreController(
       );
 
       const Model = `${body.vehicleInfo?.model?.make} ${body.vehicleInfo?.model?.original_model}`;
-
-      await strapi
-        .plugin("email")
-        .service("email")
-        .send({
-          from: process.env.SMTP_EMAIL,
-          to: body.dateInfo?.email,
-          subject: `Car Shipping Quote #${enqNumber} for your ${Model}`,
-          html: HTMLTemplate({
-            header: `Car Shipping Quote #<span
-            style="line-height: inherit; color: #437ad9"
-            >${enqNumber}</span
-          >
-          for your ${body.vehicleInfo?.model?.make}
-          ${body.vehicleInfo?.model?.original_model}`,
-            enquiry: body,
-            enqid: created.id,
-          }),
-        });
+      try {
+        await strapi
+          .plugin("email")
+          .service("email")
+          .send({
+            from: process.env.SMTP_EMAIL,
+            to: body.dateInfo?.email,
+            subject: `Car Shipping Quote #${enqNumber} for your ${Model}`,
+            html: HTMLTemplate({
+              header: `Car Shipping Quote #<span
+              style="line-height: inherit; color: #437ad9"
+              >${enqNumber}</span
+            >
+            for your ${body.vehicleInfo?.model?.make}
+            ${body.vehicleInfo?.model?.original_model}`,
+              enquiry: body,
+              enqid: created.id,
+            }),
+          });
+        console.log("mail sent");
+      } catch (error) {
+        console.log("mail send error->", error);
+      }
       return created;
     },
   })
